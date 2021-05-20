@@ -1,0 +1,23 @@
+version: '3'
+services:
+  api.localhost:
+    build:
+      context: .
+      dockerfile: ./docker/centos.dockerfile
+    container_name: api_webserver
+    extra_hosts:
+     - "api.local:127.0.0.1"
+    hostname: api.local
+    domainname: local
+    volumes:
+    - ./:/var/www/html
+    ports:
+    - "80:80"
+    networks:
+      - api
+secrets:
+    host_ssh_key:
+        file: ~/.ssh/id_rsa
+networks:
+    api:
+        driver: bridge
