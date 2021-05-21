@@ -16,6 +16,7 @@ class ListingApiTest extends TestCase
     public function not_found_when_json_database_doesnt_exist()
     {
         File::delete(storage_path('db.json'));
+        config([ 'csv.file' => storage_path('db.json')]);
         $response = $this->response();
         $response->assertResponseStatus(Response::HTTP_NOT_FOUND);
     }

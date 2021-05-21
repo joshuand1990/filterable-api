@@ -12,8 +12,8 @@
 - run `docker compose up` to start the machine.
 - To ssh into the docker container there is a script in _./docker/shell.sh_, on MacOS you can `sh ./docker/shell.sh`.
 - Once in the default directory */var/www/html*, run `composer install`, all the necessary packages will be installed.
-- After the installation scripts of composer please create config files (`.env`), to add any config files
-- Once the installation is complete commands can we run using `php artisan`
+- After the installation scripts of composer please create config file, `.env`, in the root directory of the project
+- When the installation completes, all the available cli commands can be accessed using `php artisan` while in the root directory via the terminal.
 - Web server can be accessed using http://localhost.
 - Since we are using an `.env` file, the "database" (json file) can be configured using hte key `CSV_FILE`, in-case there needs to be any path changes - the full path needs to given
 - There is a sample `.env` file called `.env.example` that can be used as a  template
