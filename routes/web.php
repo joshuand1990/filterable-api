@@ -13,6 +13,7 @@
 |
 */
 
+use App\Http\Controllers\ListingsController;
 use App\Http\Middleware\ForceXmlMiddleware;
 use Laravel\Lumen\Routing\Router;
 
@@ -20,4 +21,5 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('api/listings', [ 'uses' => \App\Http\Controllers\ListingsController::class .'@index', 'middleware' => [ ForceXmlMiddleware::class ] ]);
+$router->get('api/listings', [ 'uses' => ListingsController::class .'@index', 'middleware' => [ ForceXmlMiddleware::class ] ]);
+$router->get('api/listings/{id}', [ 'uses' => ListingsController::class .'@show', 'middleware' => [ ForceXmlMiddleware::class ] ]);

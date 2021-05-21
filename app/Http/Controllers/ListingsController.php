@@ -8,11 +8,16 @@ use Illuminate\Http\Response;
 
 class ListingsController extends Controller
 {
+    protected function getData() : JsonLoader
+    {
+        return (new JsonLoader())
+            ->setFilePath(storage_path('db.json'))->setMapper(new ListingsResource)
+            ->load();
+    }
+
     public function index()
     {
-        $loader = (new JsonLoader())
-            ->setFilePath(storage_path('db.json'))->setMapper(new ListingsResource)
-            ->load()
+        $loader = $this->getData()
         ->when(request()->has('name'), function ($loader) {
             $search = request('name');
             return $loader->filter(function ($item) use ($search) {
@@ -27,5 +32,15 @@ class ListingsController extends Controller
         });
          return response()->toXmlResponse($loader->toXml("listings"),
              $loader->count() ? Response::HTTP_OK : Response::HTTP_NO_CONTENT);
+    }
+
+    public function show($id)
+    {
+        $loader = $this->getData()->where('id', '=', $id);
+        if($loader->count() < 1) {
+
+            return response()->toXmlResponse("<error> No Data found.</error>", Response::HTTP_NO_CONTENT);
+        }
+        return response()->toXmlResponse($loader->toXml("listings"), Response::HTTP_OK );
     }
 }
