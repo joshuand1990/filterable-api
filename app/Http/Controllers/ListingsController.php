@@ -8,10 +8,22 @@ use Illuminate\Http\Response;
 
 class ListingsController extends Controller
 {
+    /**
+     * @return \Laravel\Lumen\Application|mixed
+     */
+    protected function getFilePath()
+    {
+        return config('csv.file');
+    }
+
+    /**
+     * @return JsonLoader
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     protected function getData() : JsonLoader
     {
         return (new JsonLoader())
-            ->setFilePath(storage_path('db.json'))->setMapper(new ListingsResource)
+            ->setFilePath($this->getFilePath())->setMapper(new ListingsResource)
             ->load();
     }
 
