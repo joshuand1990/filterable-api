@@ -22,7 +22,11 @@ abstract class BaseLoader extends Collection implements FileLoader, Xmlable, Jso
     protected $dto_mapper;
     protected $file_path = null;
 
-    public function toXml($root = 'root') : string
+    /**
+     * @param string $root
+     * @return string
+     */
+    public function toXml(string $root = 'root') : string
     {
         $xmls = array_map(function ($value) {
             if ($value instanceof Xmlable) {

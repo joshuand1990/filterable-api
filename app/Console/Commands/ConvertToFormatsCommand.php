@@ -21,12 +21,19 @@ class ConvertToFormatsCommand extends Command
         $this->processWriter($formats, $file, $outputFilename);
     }
 
+    /**
+     * Provides default values to argument keys
+     * @param $key
+     * @param null $default
+     * @return array|mixed|string|null
+     */
     public function defaults($key, $default = null)
     {
         return $this->argument($key) ?? $default;
     }
 
     /**
+     * Processes each format and saves.
      * @param $formats
      * @param CsvLoader $file
      * @param string $outputFilename

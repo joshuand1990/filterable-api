@@ -8,6 +8,10 @@ class CsvLoader extends BaseLoader
 {
     protected $file;
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function load() : self
     {
         $this->file = new SplFileObject($this->getFilePath());
@@ -22,6 +26,10 @@ class CsvLoader extends BaseLoader
         return $this;
     }
 
+    /**
+     * @param array $line
+     * @return bool
+     */
     protected function isInValidLine(array $line): bool
     {
         return count($line) === 1 && is_null($line[0]);
